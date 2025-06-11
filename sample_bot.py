@@ -30,11 +30,11 @@ def handle_update(update):
                     {"text": "Chọn B", "callback_data": "B"}
                 ]]
             }
-            bot.send_message(chat_id, "Bấm chọn bên dưới:", reply_markup=keyboard)
+            bot.send_message(chat_id, "*Bấm chọn bên dưới:*", reply_markup=keyboard, parse_mode="Markdown")
         else:
-            bot.reply(update, f"Bạn gửi: {text}")
+            bot.reply(update, f"Bạn gửi: *{text}*", parse_mode="Markdown")
 
 if __name__ == "__main__":
-    TOKEN = "7175344:change"
+    TOKEN = "7175344-change-your-bot-telegram-token"
     bot = TelegramBotAPI(TOKEN)
     bot.polling(handle_update)
