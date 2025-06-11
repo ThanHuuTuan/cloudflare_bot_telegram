@@ -7,7 +7,7 @@ import json
 class TelegramBotAPI:
     def __init__(self, token):
         self.token = token
-        self.api_url = f"https://YOUR-WORKER.workers.dev/bot{self.token}"
+        self.api_url = f"https://your-worker-id.workers.dev/bot{self.token}"
         self.offset = None
 
     def get_updates(self, timeout=30):
@@ -26,7 +26,7 @@ class TelegramBotAPI:
             traceback.print_exc()
         return []
 
-    def send_message(self, chat_id, text, reply_to_message_id=None, reply_markup=None):
+    def send_message(self, chat_id, text, reply_to_message_id=None, reply_markup=None, parse_mode=None):
         try:
             payload = {
                 "chat_id": chat_id,
@@ -36,6 +36,8 @@ class TelegramBotAPI:
                 payload["reply_to_message_id"] = reply_to_message_id
             if reply_markup:
                 payload["reply_markup"] = json.dumps(reply_markup)
+            if parse_mode:
+                payload["parse_mode"] = parse_mode  # 'Markdown', 'HTML', or None
 
             r = requests.post(f"{self.api_url}/sendMessage", data=payload, timeout=10)
             r.raise_for_status()
@@ -45,11 +47,12 @@ class TelegramBotAPI:
             traceback.print_exc()
         return {}
 
-    def reply(self, message, text, reply_markup=None):
+    def reply(self, message, text, reply_markup=None, parse_mode=None):
         try:
             chat_id = message["chat"]["id"]
             message_id = message["message_id"]
-            return self.send_message(chat_id, text, reply_to_message_id=message_id, reply_markup=reply_markup)
+            return self.send_message(chat_id, text, reply_to_message_id=message_id, reply_markup=reply_markup,
+                                     parse_mode=parse_mode)
         except Exception as e:
             print(f"[reply] Error: {e}")
             traceback.print_exc()
