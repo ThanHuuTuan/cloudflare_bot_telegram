@@ -5,7 +5,6 @@ Cloudflare Workers cho phép bạn chạy JavaScript (hoặc TypeScript) trên e
 ## 📌 Yêu cầu
 
 - Tài khoản Cloudflare: [https://dash.cloudflare.com/](https://dash.cloudflare.com/)
-- (Khuyến nghị) Cài đặt `Wrangler CLI`: công cụ quản lý Worker từ dòng lệnh.
 
 ---
 
